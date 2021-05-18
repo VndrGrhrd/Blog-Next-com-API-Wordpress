@@ -1,6 +1,6 @@
 export async function getFullPosts() {
   let fullPosts = {};
-  const res = await fetch("http://localhost:8080/wp-estudo/graphql", {
+  const res = await fetch("http://localhost/sites/Blog-Next-com-API-Wordpress/graphql", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
