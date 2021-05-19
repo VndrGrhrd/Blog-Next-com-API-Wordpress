@@ -2,12 +2,10 @@ import Head from "next/head";
 import { getFullPosts, postsPorCategoria } from "./api/blogAPI";
 import styles from "../styles/Home.module.css";
 import { useState } from "react";
-import Image from 'next/image'
 
 export default function HomePage({ postsObj }) {
   const categoria = postsObj.data.categories;
-   const PostItem = postsObj.data.posts
-   let postsDaCategoria ={}
+  let postsDaCategoria ={}
 
   const [idCategory, setCategory] = useState("");
   const [posts, setPosts] = useState(postsObj.data.posts)
@@ -19,7 +17,7 @@ export default function HomePage({ postsObj }) {
     postsDaCategoria =  await postsPorCategoria(categoriaFiltro)
     
     setPosts(postsDaCategoria)
-}
+  }
 
   return (
     <>
@@ -55,10 +53,10 @@ export default function HomePage({ postsObj }) {
                  return (
                 <article key={post.postId} className={styles.postsContainer}>
                   <div>
-                    <Image 
+                    <img 
                       src={post.featuredImage.node.sourceUrl}
-                      width={250}
-                      height={250}
+                      width={150}
+                      height={225}
                     />
                   </div>
                   <div>
