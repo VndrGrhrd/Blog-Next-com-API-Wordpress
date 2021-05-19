@@ -1,18 +1,25 @@
 import Head from "next/head";
-import { getFullPosts } from "./api/blogAPI";
+import { getFullPosts, postsPorCategoria } from "./api/blogAPI";
 import styles from "../styles/Home.module.css";
 import { useState } from "react";
+import Image from 'next/image'
 
 export default function HomePage({ postsObj }) {
   const categoria = postsObj.data.categories;
-  const PostItem = postsObj.data.posts;
+   const PostItem = postsObj.data.posts
+   let postsDaCategoria ={}
 
   const [idCategory, setCategory] = useState("");
+  const [posts, setPosts] = useState(postsObj.data.posts)
 
-  const handleChange = (event) => {
-    setCategory(event.target.valeu);
-    console.log(event.target.value);
-  };
+  const handleChange =  async (event) => { 
+    setCategory(event.target.value);
+    
+    const categoriaFiltro = event.target.value
+    postsDaCategoria =  await postsPorCategoria(categoriaFiltro)
+    
+    setPosts(postsDaCategoria)
+}
 
   return (
     <>
@@ -28,10 +35,9 @@ export default function HomePage({ postsObj }) {
             <div>
               <select
                 id="selectedCategorie"
-                value={idCategory}
                 onChange={handleChange}
               >
-                <option data-categorie="All">Todas</option>
+                <option value={idCategory} key={idCategory}>Todas</option>
                 {categoria.nodes.map((item) => {
                   return (
                     <option value={item.categoryId} key={item.categoryId}>
@@ -42,12 +48,18 @@ export default function HomePage({ postsObj }) {
               </select>
             </div>
           </div>
-          <div className={styles.grid}>
-            {PostItem.nodes.map((post) => {
-              return (
+          <div className={styles.grid}
+          onChange = {handleChange}
+          >
+            {{posts}.posts.nodes.map((post) => {
+                 return (
                 <article key={post.postId} className={styles.postsContainer}>
                   <div>
-                    <img src={post.featuredImage.node.sourceUrl}></img>
+                    <Image 
+                      src={post.featuredImage.node.sourceUrl}
+                      width={250}
+                      height={250}
+                    />
                   </div>
                   <div>
                     <h3>{post.title}</h3>
@@ -59,7 +71,7 @@ export default function HomePage({ postsObj }) {
           </div>
         </main>
       </div>
-      {console.log(postsObj)}
+      {/* {console.log(postsObj)} */}
     </>
   );
 }
