@@ -1,3 +1,5 @@
 app-localhost/package-lock.json
 wp-estudo
 /app-localhost/node-modules
+node_modules
+.next

@@ -1,6 +1,8 @@
+const sourceURL = 'http://studies.vandoir.com.br/graphql'
+
 export async function getFullPosts() {
   let fullPosts = {};
-  const res = await fetch("http://localhost/sites/Blog-Next-com-API-Wordpress/wp-estudo/graphql", {
+  const res = await fetch(`${sourceURL}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -48,7 +50,7 @@ export async function getFullPosts() {
 
 export async function postsPorCategoria(categoriaFiltro){
   let postsDaCategoria = {};
-  const res = await fetch("http://localhost/sites/Blog-Next-com-API-Wordpress/wp-estudo/graphql", {
+  const res = await fetch(`${sourceURL}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
